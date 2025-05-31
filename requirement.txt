@@ -1,0 +1,22 @@
+usermodel
+    full name - string
+    email - string
+    password - string
+    cart - Array
+    isadmin - Boolean
+    orders - array
+    contact - number
+    picture - DB
+
+
+Product 
+    image 
+    name
+    price
+    discount
+    bgColor
+    panelColor
+    TextColor
+
+
+    sepration of concern 1 - to divide the owner model
