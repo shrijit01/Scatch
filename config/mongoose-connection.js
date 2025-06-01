@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
-const env = require('dotenv').config();
+// const env = require('dotenv').config();
+const config = require("config")
+const debug = require("debug")("development:mongoose")
+
 mongoose
-  .connect(process.env.DB_URL)
+  .connect(`${config.get("MONGODB_URI")}/scatch`)
   .then(function (req, res) {
-    console.log(`connected in ${process.env.PORT} `,);
+    debug(`connected `,);// ${process.env.PORT}
   })
   .catch(function (err) {
-    console.log(err);
+    debug(err);
   });
 
 

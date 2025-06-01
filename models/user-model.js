@@ -7,13 +7,16 @@ const userSchema = mongoose.Schema({
     trim: true,
     minLength: 3,
   },
-  email: String,
+  email:String,
+  //  {
+  //   type:String,
+  //   unique:true
+  // },
   password: String,
   cart: {
     type: Array,
     default: [],
   },
-  isadmin: Boolean,
   orders: {
     type: Array,
     default: [],
