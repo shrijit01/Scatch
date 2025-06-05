@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body class="font-['helvetica_now_display']">
-    <nav class="w-full fixed top-0 left-0 px-5 py-3">
-        <h3 class="text-xl">Scatch</h3>
+  <body class="font-['helvetica_now_display']">
+    <nav class="w-full flex justify-between px-5 py-3">
+      <h3 class="text-xl">Scatch</h3>
+      <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %> <%
+      if(loggedin){ %>
+      <div class="flex gap-5">
+        <a href="/shop">shop <i class="ri-store-2-line"></i></a>
+        <a href="/cart">Cart <i class="ri-shopping-cart-line"></i></a>
+        <a href="/users/wishlist">wishlist</a>
+        <a href="/users/favourites/">favourite</a>
+        <a href="/profile">My Account
+           <i class="ri-user-3-line"></i>
+          </a>
+        <a class="text-red-600" href="/users/logout"
+          >Logout <i class="ri-user-shared-line"></i
+        ></a>
+      </div>
+      <%}%>
     </nav>
+

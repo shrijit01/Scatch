@@ -14,3 +14,8 @@ leture 28 completed till 30.15
             </span>
         </div>
         <% } %>
+
+        completed till 6 min last video
+
+
+        completed till user profile 

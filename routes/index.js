@@ -2,19 +2,88 @@ const express = require("express");
 const router = express.Router();
 const isLoggedIn = require("../middlewares/isLoggedIn");
 const productModel = require("../models/product-model");
+const userModel = require("../models/user-model");
 
-router.get("/", function (req, res) {
-  let error = req.flash("error");
-  res.render("index", { error });
+router.get("/", async function (req, res) {
+  try {
+    let error = req.flash("error");
+    res.render("index", { error, loggedin: false });
+  } catch (err) {
+    res.send(err.message);
+  }
 });
 
 router.get("/shop", isLoggedIn, async function (req, res) {
-  let products =await productModel.find();
-  res.render("shop", { products });
+  try {
+    let products = await productModel.find();
+    let success = req.flash("success");
+    res.render("shop", { products, success });
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+router.get("/profile", isLoggedIn, async function (req, res) {
+  try {
+    let user = await userModel.findOne({ email: req.user.email });
+    if (!user) return res.send("User not found");
+    res.render("profile", { user });
+  } catch (err) {
+    res.send(err.message);
+  }
+});
+
+router.get("/cart", isLoggedIn, async function (req, res) {
+  try {
+    let user = await userModel
+      .findOne({ email: req.user.email })
+      .populate("cart");
+    let totalPrice = 0;
+    let totalDiscount = 0;
+    user.cart.forEach((product) => {
+      totalPrice += product.price || 0;
+      totalDiscount += product.discount || 0;
+    });
+    let success = req.flash("success");
+    let bill = totalPrice + 20 - totalDiscount;
+    res.render("cart", { user, bill, success });
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+router.get("/addtocart/:productid", isLoggedIn, async function (req, res) {
+  try {
+    let user = await userModel.findOne({ email: req.user.email });
+    user.cart.push(req.params.productid);
+    await user.save();
+    req.flash("success", "Added to Cart");
+    res.redirect("/shop");
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+router.get("/removefromcart/:productid", isLoggedIn, async function (req, res) {
+  try {
+    let user = await userModel.findOne({ email: req.user.email });
+    let productIndex = user.cart.indexOf(req.params.productid);
+    user.cart.splice(productIndex, 1);
+    await user.save();
+    req.flash("success", "Removed From Cart");
+    res.redirect("/cart");
+  } catch (error) {
+    res.send(error.message);
+  }
 });
 
 router.get("/logout", isLoggedIn, async function (req, res) {
-  res.render("shop");
+  res.redirect("/");
+});
+
+router.get("/error", function (req, res) {
+  let error = req.flash("error");
+  res.render("error", { error, loggedin: false });
 });
 
 module.exports = router;
