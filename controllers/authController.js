@@ -89,7 +89,7 @@ module.exports.addtofav = async function (req, res) {
     await user.save();
     await product.save();
 
-    res.redirect("/shop"); // or res.json if doing it via AJAX
+    res.redirect("/shop");
 
   } catch (error) {
     res.send(error.message);
@@ -99,7 +99,13 @@ module.exports.addtofav = async function (req, res) {
 
 module.exports.getFav = async function (req, res) {
   try {
-    res.send("YOU GOT ALL FAV");
+    let user = await userModel.findOne({ email: req.user.email }).populate("favourites");
+    if (!user) {
+      return res.redirect("/error");
+    }
+    let success = req.flash("success");
+    console.log(user.favourites);
+    res.render("favourite", { user, success });
   } catch (error) {
     res.redirect("/error");
   }

@@ -7,6 +7,7 @@ const {
   addtofav,
   getFav,
   getWishlist,
+  remfromfav
 } = require("../controllers/authController");
 const isLoggedIn = require("../middlewares/isLoggedIn");
 router.get("/", function (req, res) {
@@ -15,9 +16,9 @@ router.get("/", function (req, res) {
 
 router.get("/logout", logout);
 router.post("/login", loginUser);
-router.get("/favourites", getFav); //Get all Favorites
+router.get("/favourites",isLoggedIn, getFav); //Get all Favorites
 router.get("/wishlist", getWishlist); //get all Wishlist
 router.post("/register", registerUser);
-router.get("/addtofavourite/:productId",isLoggedIn, addtofav); //add one product to fav
+router.get("/addtofavourite/:productId",isLoggedIn, addtofav); //add/Remove  one product to/from fav
 
 module.exports = router;

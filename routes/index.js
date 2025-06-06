@@ -15,9 +15,10 @@ router.get("/", async function (req, res) {
 
 router.get("/shop", isLoggedIn, async function (req, res) {
   try {
+    let user = await userModel.findOne({ email: req.user.email });
     let products = await productModel.find();
     let success = req.flash("success");
-    res.render("shop", { products, success });
+    res.render("shop", { products, success,user });
   } catch (error) {
     res.send(error.message);
   }
