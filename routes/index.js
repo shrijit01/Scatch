@@ -7,7 +7,7 @@ const userModel = require("../models/user-model");
 router.get("/", async function (req, res) {
   try {
     let error = req.flash("error");
-    res.render("index", { error, loggedin: false });
+    res.render("index", { error, loggedin: false,page:"Signup/Login" });
   } catch (err) {
     res.send(err.message);
   }
@@ -18,7 +18,7 @@ router.get("/shop", isLoggedIn, async function (req, res) {
     let user = await userModel.findOne({ email: req.user.email });
     let products = await productModel.find();
     let success = req.flash("success");
-    res.render("shop", { products, success,user });
+    res.render("shop", { products, success,user,page:"shop" });
   } catch (error) {
     res.send(error.message);
   }
@@ -28,7 +28,7 @@ router.get("/profile", isLoggedIn, async function (req, res) {
   try {
     let user = await userModel.findOne({ email: req.user.email });
     if (!user) return res.send("User not found");
-    res.render("profile", { user });
+    res.render("profile", { user,page:"Profile" });
   } catch (err) {
     res.send(err.message);
   }
@@ -47,7 +47,7 @@ router.get("/cart", isLoggedIn, async function (req, res) {
     });
     let success = req.flash("success");
     let bill = totalPrice + 20 - totalDiscount;
-    res.render("cart", { user, bill, success });
+    res.render("cart", { user, bill, success ,page:"Cart"});
   } catch (error) {
     res.send(error.message);
   }

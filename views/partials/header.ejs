@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title><%= page %></title>
+    <link rel="shortcut icon" href="/images/BAG.png" type="image/x-icon">
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
       rel="stylesheet"
@@ -13,7 +14,12 @@
 
   <body class="font-['helvetica_now_display']">
     <nav class="w-full flex justify-between px-5 py-3">
-      <h3 class="text-xl">Scatch</h3>
+      <a href="/shop">
+        <div class="flex items-center gap-1">
+        <img class="h-8 w-8" src="/images/BAG.png" alt="image">
+        <h3 class="text-xl">Scatch</h3>
+      </div>
+      </a>
       <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %> <%
       if(loggedin){ %>
       <div class="flex gap-5">

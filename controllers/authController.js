@@ -21,7 +21,7 @@ module.exports.registerUser = async function (req, res) {
           });
           let token = generateToken(user);
           res.cookie("token", token);
-          res.send("user Created Successfully");
+          res.redirect("/shop");
         }
       });
     });
@@ -68,7 +68,7 @@ module.exports.addtofav = async function (req, res) {
 
     // Toggle favourite
     const favIndex = user.favourites.findIndex(
-      fav => fav.toString() === productIdStr
+      (fav) => fav.toString() === productIdStr
     );
     if (favIndex !== -1) {
       user.favourites.splice(favIndex, 1); // remove
@@ -78,7 +78,7 @@ module.exports.addtofav = async function (req, res) {
 
     // Toggle like
     const likeIndex = product.like.findIndex(
-      id => id.toString() === userIdStr
+      (id) => id.toString() === userIdStr
     );
     if (likeIndex !== -1) {
       product.like.splice(likeIndex, 1);
@@ -90,22 +90,21 @@ module.exports.addtofav = async function (req, res) {
     await product.save();
 
     res.redirect("/shop");
-
   } catch (error) {
     res.send(error.message);
   }
 };
 
-
 module.exports.getFav = async function (req, res) {
   try {
-    let user = await userModel.findOne({ email: req.user.email }).populate("favourites");
+    let user = await userModel
+      .findOne({ email: req.user.email })
+      .populate("favourites");
     if (!user) {
       return res.redirect("/error");
     }
     let success = req.flash("success");
-    console.log(user.favourites);
-    res.render("favourite", { user, success });
+    res.render("favourite", { user, success, page: "Favourites" });
   } catch (error) {
     res.redirect("/error");
   }
@@ -113,7 +112,7 @@ module.exports.getFav = async function (req, res) {
 
 module.exports.getWishlist = async function (req, res) {
   try {
-    res.send("YOU GOT ALL WISHLIST");
+    res.render("wishlist",{page:"Wishlist"});
   } catch (error) {
     res.redirect("/error");
   }
