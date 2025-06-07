@@ -1,103 +1,105 @@
-<%- include('./partials/header') %>
-
-  <% if(success.length>0){ %>
-        <div id="flash-message" class="absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 py-2 rounded-md bg-green-500">
-            <span  class="inline-block mt-1 mb-1 text-white">
-                <%= success %>
-            </span>
-        </div>
-  <% } %>
-      <div class="w-full h-screen flex items-start px-20 py-20">
-        <div class="w-[25%] flex h-screen flex-col items-start">
-          <div class="flex items-center gap-2">
-            <h3>sort by</h3>
-            <form action="/shop">
-              <select class="border-[1px] px-2 py-1" name="sortby" id="">
-                <option value="popular">Popular</option>
-                <option value="newest">Newest</option>
-              </select>
-            </form>
-          </div>
-          <div class="flex flex-col mt-20">
-            <a class="block w-fit mb-2" href="">New Collection</a>
-            <a class="block w-fit mb-2" href="">All Products</a>
-            <a class="block w-fit mb-2" href="">Discounted Products</a>
-          </div>
-          <div class="mt-32">
-            <a class="block w-fit mb-2" href="">Filter by :</a>
-            <a class="block w-fit mb-2" href="">Availability</a>
-            <a class="block w-fit mb-2" href="">Discount</a>
-          </div>
-        </div>
-        <div class="w-[75%] flex flex-col gap-5 h-screen">
-          <div class="flex items-start gap-5">
-            <% if(products.length > 0){ %> 
-              <% products.forEach(function(product){ %>
-                  <div class="w-60">
-                      <div
-                      class="w-full relative h-52 flex items-center justify-center bg-[<%= product.bgColor %>]"
-                      >
-                      <div class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-[<%= product.panelColor %>]">
-                        <% let isLiked = user && user.favourites && user.favourites.some(fav =>fav.toString() === product._id.toString())%>
-                        <%if(!isLiked){%>
-                          <a href="/users/addtofavourite/<%= product._id %>">
-                            <i class="ri-heart-line text-[<%= product.textColor %>]"></i>
-                          </a>
-                        <%}else{%>
-                          <a href="/users/addtofavourite/<%= product._id %>">
-                            <i class="ri-heart-fill text-red-500"></i>
-                          </a>
-                        <%}%>
-                      </div>
-                      <img
-                          class="h-[12rem]"
-                          src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                          alt=""
-                      />
-                      </div>
-                      <div
-                      class="flex justify-between bg-[<%= product.panelColor %>] items-center px-4 py-4 text-[<%= product.textColor %>]"
-                      >
-                      <div>
-                          <h3><%= product.name %></h3>
-                          <h4>₹ <%= product.price %></h4>
-                      </div>
-                      <a
-                          class="w-7 h-7 flex items-center justify-center rounded-full bg-white"
-                          href="/addtocart/<%= product._id %>"
-                      >
-                          <i class="ri-add-line"></i>
-                      </a>
-                      </div>
-                  </div>
-            <% }) %>
-            <%}else {%>
-              <div class="w-60">
-                      <div
-                      class="w-full h-52 flex items-center justify-center bg-zinc-900"
-                      >
-                      <img
-                          class="h-[12rem]"
-                          alt=""
-                      />
-                      </div>
-                      <div
-                      class="flex justify-between bg-gray-500 items-center px-4 py-4 text-white"
-                      >
-                      <div>
-                          <h3>Tshirt</h3>
-                          <h4>1200</h4>
-                      </div>
-                      <a
-                          class="w-7 h-7 flex items-center justify-center rounded-full bg-zinc-700"
-                          href=""
-                      >
-                          <i class="ri-add-line"></i>
-                      </a>
-                      </div>
-                  </div>
-            <%}%>
-          </div>
-        </div>
+<%- include('./partials/header') %> <% if(success.length>0){ %>
+<div
+  id="flash-message"
+  class="fixed top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 py-2 rounded-md bg-green-500"
+>
+  <span class="inline-block mt-1 mb-1 text-white"> <%= success %> </span>
+</div>
+<% } %>
+<div class="h-[700px] w-full overflow-y-auto">
+  <div class="w-full h-full flex items-start px-20 py-20">
+    <!-- left panel  -->
+    <!-- <div class="w-[25%] flex h-full flex-col items-start">
+      <div class="flex items-center gap-2">
+        <h3>sort by</h3>
+        <form action="/shop">
+          <select class="border-[1px] px-2 py-1" name="sortby" id="">
+            <option value="popular">Popular</option>
+            <option value="newest">Newest</option>
+          </select>
+        </form>
       </div>
+      <div class="flex flex-col mt-20">
+        <a class="block w-fit mb-2" href="">New Collection</a>
+        <a class="block w-fit mb-2" href="">All Products</a>
+        <a class="block w-fit mb-2" href="">Discounted Products</a>
+      </div>
+      <div class="mt-32">
+        <a class="block w-fit mb-2" href="">Filter by :</a>
+        <a class="block w-fit mb-2" href="">Availability</a>
+        <a class="block w-fit mb-2" href="">Discount</a>
+      </div>
+    </div> -->
+    <div class="w-[75%] flex flex-col gap-5 h-full">
+      <div class="flex items-start gap-5 flex-wrap">
+        <% if(products.length > 0){ %> <% products.forEach(function(product){ %>
+        <div class="w-60 rounded-[4px] overflow-hidden">
+          <div
+            class="w-full  relative h-52 flex items-center justify-center bg-[<%= product.bgColor %>]"
+          >
+            <div
+              class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center rounded-full bg-[<%= product.panelColor %>]"
+            >
+              <% let isLiked = user && user.favourites &&
+              user.favourites.some(fav =>fav.toString() ===
+              product._id.toString())%> <%if(!isLiked){%>
+              <a href="/users/addtofavourite/<%= product._id %>">
+                <i class="ri-heart-line text-[<%= product.textColor %>]"></i>
+              </a>
+              <%}else{%>
+              <a href="/users/addtofavourite/<%= product._id %>">
+                <i class="ri-heart-fill text-red-500"></i>
+              </a>
+              <%}%>
+            </div>
+            <!-- <div class="absolute top-2 left-2  ">
+              <p class="flex items-center text-[15px] rounded-full justify-end bg-[<%= product.panelColor %>] px-2 py-1">❤️<%= product.like.length  %></p>
+            </div> -->
+            <img
+              class="h-[12rem]"
+              src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+              alt=""
+            />
+          </div>
+          <div
+            class="flex  justify-between bg-[<%= product.panelColor %>] items-center px-4 py-2 text-[<%= product.textColor %>]"
+          >
+            <div>
+              <h3><%= product.name %></h3>
+              <h4>₹ <%= product.price %></h4>
+            </div>
+            <a
+              class="w-7 h-7 flex items-center justify-center rounded-full bg-white"
+              href="/addtocart/<%= product._id %>"
+            >
+              <i class="ri-add-line"></i>
+            </a>
+          </div>
+         
+        </div>
+        <% }) %> <%}else {%>
+        <div class="w-60">
+          <div class="w-full h-52 flex items-center justify-center bg-zinc-900">
+            <img class="h-[12rem]" alt="" />
+          </div>
+          <div
+            class="flex justify-between bg-gray-500 items-center px-4 py-4 text-white"
+          >
+            <div>
+              <h3>Tshirt</h3>
+              <h4>1200</h4>
+            </div>
+            <a
+              class="w-7 h-7 flex items-center justify-center rounded-full bg-zinc-700"
+              href=""
+            >
+              <i class="ri-add-line"></i>
+            </a>
+          </div>
+        </div>
+        <%}%>
+      </div>
+    </div>
+  </div>
+</div>
 <%- include('./partials/footer') %>

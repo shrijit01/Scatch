@@ -7,7 +7,6 @@ const {
   addtofav,
   getFav,
   getWishlist,
-  remfromfav
 } = require("../controllers/authController");
 const isLoggedIn = require("../middlewares/isLoggedIn");
 router.get("/", function (req, res) {

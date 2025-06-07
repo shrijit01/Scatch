@@ -2,17 +2,11 @@
 <% if(success.length>0){ %>
 <div
   id="flash-message"
-  class="absolute top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 py-2 rounded-md bg-green-500"
+  class="fixed top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 py-2 rounded-md bg-green-500"
 >
   <span class="inline-block mt-1 mb-1 text-white"> <%= success %> </span>
 </div>
 <% } %> 
-<div class="w-full  bg-gray-700">
-  <div class="w-full  flex items-center justify-center">
-    <h2 class="text-xl text-white">Favourites</h2>
-  </div>    
-
-</div>
 <% user.favourites.forEach(function(product){%>
 <div class="w-full h-screen flex items-start px-20 py-20 gap-10">
   <div class="w-[30%] rounded-md overflow-hidden">
@@ -81,9 +75,9 @@
         add to wishlist
       </button>
       <a
-        href="#"
+        href="/users/addtofavourite/<%= product._id %>"
         class="bg-red-600 px-5 py-2 rounded-3xl"
-        >Remove from Cart</a
+        >Remove from favoutite</a
       >
     </div>
   </div>

@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "development") {
 
 router.get("/admin",isLoggedIn, function (req, res) {
   let success = req.flash("success");
-  res.render("createProducts",{success});
+  res.render("createProducts",{success,page:"Admin Panel"});
 });
 
 module.exports = router;

@@ -40,9 +40,12 @@ module.exports.loginUser = async function (req, res) {
       if (result) {
         let token = generateToken(user);
         res.cookie("token", token);
+        req.flash("success", "Login Successfully");
         res.redirect("/shop");
       } else {
-        res.send("Email or password incorrect");
+        req.flash("error", "Email or password incorrect");
+        res.redirect(req.get("Referer"));
+        // res.send("Email or password incorrect");
       }
     });
   } catch (err) {
@@ -88,8 +91,7 @@ module.exports.addtofav = async function (req, res) {
 
     await user.save();
     await product.save();
-
-    res.redirect("/shop");
+    res.redirect(req.get('Referer'));
   } catch (error) {
     res.send(error.message);
   }

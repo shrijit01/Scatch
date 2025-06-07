@@ -13,12 +13,14 @@
   </head>
 
   <body class="font-['helvetica_now_display']">
-    <nav class="w-full flex justify-between px-5 py-3">
+    <nav class="w-full fixed z-40  flex justify-between px-5 py-3">
       <a href="/shop">
         <div class="flex items-center gap-1">
-        <img class="h-8 w-8" src="/images/BAG.png" alt="image">
+        <div class="h-8-w-8 overflow-hidden rounded-full bg-zinc-400">
+          <img class="h-8 w-8" src="/images/BAG.png" alt="image">
+        </div>
         <h3 class="text-xl">Scatch</h3>
-      </div>
+        </div>
       </a>
       <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %> <%
       if(loggedin){ %>

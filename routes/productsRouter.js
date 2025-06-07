@@ -23,4 +23,12 @@ router.post("/create", upload.single("image"), async function (req, res) {
   }
 });
 
+router.post("/delete/:productId",async function(req,res){
+  try {
+    
+  } catch (error) {
+    
+  }
+})
+
 module.exports = router;
