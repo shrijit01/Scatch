@@ -1,13 +1,11 @@
-<%- include('./partials/header') %> 
-<% if(success.length>0){ %>
+<%- include('./partials/header') %> <% if(success.length>0){ %>
 <div
   id="flash-message"
   class="fixed top-10 left-1/2 -translate-x-1/2 -translate-y-1/2 px-5 py-2 rounded-md bg-green-500"
 >
   <span class="inline-block mt-1 mb-1 text-white"> <%= success %> </span>
 </div>
-<% } %> 
-<% user.favourites.forEach(function(product){%>
+<% } %> <% user.favourites.forEach(function(product){%>
 <div class="w-full h-screen flex items-start px-20 py-20 gap-10">
   <div class="w-[30%] rounded-md overflow-hidden">
     <div
@@ -68,12 +66,6 @@
       </h3>
     </div>
     <div class="flex items-center text-white justify-between mt-10 text-lg">
-      <button
-        class="bg-yellow-500 px-5 py-2 rounded-3xl disabled:bg-gray-400"
-        disabled
-      >
-        add to wishlist
-      </button>
       <a
         href="/users/addtofavourite/<%= product._id %>"
         class="bg-red-600 px-5 py-2 rounded-3xl"
@@ -84,10 +76,12 @@
 </div>
 
 <%})%> <% if(user.favourites.length === 0){ %>
-<div class="text-center mt-[10%]">
-  <i class="ri-shopping-cart-line text-gray-500 text-[150px]"></i>
-</div>
-<div class="w-full h-full flex items-center justify-center">
-  <h3 class="text-3xl text-gray-600">Please add Something ...</h3>
+<div class="w-full h-screen flex flex-col items-center justify-center gap-3">
+  <div class="text-center ">
+    <i class="ri-shopping-cart-line text-gray-500 text-[150px]"></i>
+  </div>
+  <div class="text-center">
+    <h3 class="text-3xl text-gray-600">Please add Something ...</h3>
+  </div>
 </div>
 <% } %> <%- include('./partials/footer') %>

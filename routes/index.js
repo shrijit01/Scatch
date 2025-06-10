@@ -56,6 +56,10 @@ router.get("/cart", isLoggedIn, async function (req, res) {
 router.get("/addtocart/:productid", isLoggedIn, async function (req, res) {
   try {
     let user = await userModel.findOne({ email: req.user.email });
+    if(user.cart.includes(req.params.productid)) {
+      req.flash("success", "Product already in cart");
+      return res.redirect(req.get("referer"));
+    }
     user.cart.push(req.params.productid);
     await user.save();
     req.flash("success", "Added to Cart");
